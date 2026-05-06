@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimas Desserts | Premium Handmade Middle Eastern Sweets</title>
+    <meta name="description" content="Authentic handmade Middle Eastern desserts - Baklava, Kunafa, and more. Local delivery in Eastbourne & UK-wide shipping.">
+    
+    <!-- FIX #1: Broken markdown-style links replaced with real URLs -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #06291f;
+            --primary: #0b3d2e;
+            --primary-light: #145c46;
+            --accent: #d4af37;
+            --accent-light: #f4d160;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --shadow: 0 10px 40px rgba(0,0,0,0.3);
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--primary-dark);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(6, 41, 31, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        header.scrolled {
+            padding: 10px 5%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .logo {
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+        }
+        .logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px; color: var(--accent); letter-spacing: 1px;
+        }
+        .logo span {
+            display: block; font-size: 11px; color: var(--white);
+            opacity: 0.8; letter-spacing: 2px; text-transform: uppercase;
+        }
+        nav { display: flex; align-items: center; gap: 30px; }
+        nav a {
+            color: var(--white); text-decoration: none;
+            font-weight: 600; font-size: 15px;
+            position: relative; padding: 5px 0;
+            transition: var(--transition);
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0; height: 2px; background: var(--accent);
+            transition: var(--transition);
+        }
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: var(--accent); }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .cart-btn {
+            position: relative; background: none;
+            border: 2px solid var(--accent); color: var(--accent);
+            padding: 10px 20px; border-radius: 30px; cursor: pointer;
+            font-weight: 600; display: flex; align-items: center; gap: 8px;
+            transition: var(--transition); font-family: 'Cairo', sans-serif;
+        }
+        .cart-btn:hover { background: var(--accent); color: var(--primary-dark); }
+        .cart-count {
+            position: absolute; top: -8px; right: -8px;
+            background: #e74c3c; color: white;
+            width: 22px; height: 22px; border-radius: 50%;
+            font-size: 12px; display: flex; align-items: center; justify-content: center;
+            /* ENHANCEMENT: animate when count changes */
+            transition: transform 0.2s ease;
+        }
+        .cart-count.bump { transform: scale(1.4); }
+        .mobile-toggle {
+            display: none; flex-direction: column; gap: 5px;
+            cursor: pointer; padding: 10px; background: none; border: none;
+        }
+        .mobile-toggle span {
+            width: 25px; height: 3px; background: var(--accent);
+            border-radius: 2px; transition: var(--transition); display: block;
+        }
+        /* ENHANCEMENT: Hamburger → X animation */
+        .mobile-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 120px 5% 80px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            position: relative; overflow: hidden;
+        }
+        /* FIX #2: Broken w3.org SVG URL in CSS background */
+        .hero::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle, rgba(212,175,55,0.08) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: floatBg 20s linear infinite;
+        }
+        @keyframes floatBg {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50px); }
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--accent);
+            padding: 8px 25px; border-radius: 30px;
+            font-size: 14px; color: var(--accent);
+            margin-bottom: 25px; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(40px, 8vw, 70px);
+            line-height: 1.1; margin-bottom: 25px;
+        }
+        .hero h2 span { color: var(--accent); font-style: italic; }
+        .hero p {
+            font-size: 18px; opacity: 0.9; margin-bottom: 40px;
+            max-width: 600px; margin-left: auto; margin-right: auto;
+        }
+        .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 15px 35px; border-radius: 30px;
+            font-weight: 600; font-size: 16px; cursor: pointer;
+            transition: var(--transition); text-decoration: none;
+            display: inline-flex; align-items: center; gap: 10px;
+            border: none; font-family: 'Cairo', sans-serif;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: var(--primary-dark);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+        .btn-outline {
+            background: transparent; border: 2px solid var(--white); color: var(--white);
+        }
+        .btn-outline:hover { background: var(--white); color: var(--primary-dark); }
+        .hero-scroll {
+            position: absolute; bottom: 30px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            color: var(--accent); font-size: 12px; letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* ========== FEATURES STRIP ========== */
+        .features-strip {
+            background: var(--primary-light); padding: 40px 5%;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px; text-align: center;
+        }
+        .feature-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .feature-item i { font-size: 32px; color: var(--accent); }
+        .feature-item h4 { font-size: 16px; }
+        .feature-item p { font-size: 13px; opacity: 0.8; }
+
+        /* ========== PRODUCTS SECTION ========== */
+        .section { padding: 100px 5%; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .subtitle {
+            color: var(--accent); font-size: 14px;
+            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 5vw, 48px); margin-bottom: 20px;
+        }
+        .section-header p { max-width: 600px; margin: 0 auto; opacity: 0.8; }
+
+        .filter-tabs {
+            display: flex; justify-content: center; flex-wrap: wrap;
+            gap: 15px; margin-bottom: 50px;
+        }
+        .filter-tab {
+            padding: 10px 25px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            background: transparent; color: var(--white);
+            border-radius: 30px; cursor: pointer;
+            font-weight: 600; transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+        }
+        .filter-tab:hover, .filter-tab.active {
+            background: var(--accent); border-color: var(--accent); color: var(--primary-dark);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px; max-width: 1400px; margin: 0 auto;
+        }
+        .product-card {
+            background: linear-gradient(145deg, var(--primary-light), var(--primary));
+            border-radius: 20px; overflow: hidden;
+            box-shadow: var(--shadow); transition: var(--transition); position: relative;
+            /* ENHANCEMENT: fade-in on load */
+            animation: cardIn 0.4s ease both;
+        }
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+        .product-img {
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 80px; position: relative; overflow: hidden;
+        }
+        .product-badge {
+            position: absolute; top: 15px; left: 15px;
+            background: #e74c3c; color: white;
+            padding: 5px 15px; border-radius: 20px;
+            font-size: 12px; font-weight: 600;
+        }
+        .product-badge.new, .product-badge.new { background: #27ae60; }
+        .product-badge.popular { background: #e67e22; }
+        .product-badge.value { background: #8e44ad; }
+        .product-badge.bestseller { background: #c0392b; }
+        .product-wishlist {
+            position: absolute; top: 15px; right: 15px;
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.2); border: none;
+            border-radius: 50%; color: white; cursor: pointer;
+            transition: var(--transition);
+        }
+        .product-wishlist:hover, .product-wishlist.active { background: #e74c3c; }
+        .product-content { padding: 25px; }
+        .product-category { color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+        .product-name { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+        .product-desc { font-size: 14px; opacity: 0.8; margin-bottom: 20px; line-height: 1.6; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; }
+        .product-price { font-size: 28px; font-weight: 700; color: var(--accent); }
+        .product-price small { font-size: 14px; opacity: 0.7; font-weight: 400; }
+        .quantity-control {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(0,0,0,0.2); border-radius: 30px; padding: 5px;
+        }
+        .qty-btn {
+            width: 35px; height: 35px; border: none;
+            background: var(--accent); color: var(--primary-dark);
+            border-radius: 50%; cursor: pointer; font-size: 18px;
+            font-weight: 700; transition: var(--transition);
+        }
+        .qty-btn:hover { transform: scale(1.1); }
+        .qty-value { min-width: 30px; text-align: center; font-weight: 600; }
+        .add-to-cart {
+            width: 100%; margin-top: 15px; padding: 15px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border: none; border-radius: 10px;
+            color: var(--primary-dark); font-weight: 700; font-size: 16px;
+            cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 10px; transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+        }
+        .add-to-cart:hover { transform: scale(1.02); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
+        /* ENHANCEMENT: "Added!" flash state */
+        .add-to-cart.added { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+
+        /* ========== ABOUT SECTION ========== */
+        .about-section { background: var(--primary); }
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 80px; align-items: center;
+            max-width: 1200px; margin: 0 auto;
+        }
+        .about-images { position: relative; }
+        .about-img-main {
+            width: 100%; height: 500px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 150px;
+        }
+        .about-img-badge {
+            position: absolute; bottom: -30px; right: -30px;
+            width: 150px; height: 150px;
+            background: var(--accent); border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--primary-dark); font-weight: 700; box-shadow: var(--shadow);
+        }
+        .about-img-badge span { font-size: 36px; }
+        .about-content h2 { font-family: 'Playfair Display', serif; font-size: 40px; margin-bottom: 25px; }
+        .about-content h2 span { color: var(--accent); }
+        .about-content p { opacity: 0.9; margin-bottom: 20px; line-height: 1.8; }
+        .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 40px; }
+        .about-feature { display: flex; gap: 15px; }
+        .about-feature-icon {
+            width: 50px; height: 50px;
+            background: rgba(212, 175, 55, 0.2); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent); font-size: 20px; flex-shrink: 0;
+        }
+        .about-feature h4 { font-size: 16px; margin-bottom: 5px; }
+        .about-feature p { font-size: 13px; margin: 0; opacity: 0.7; }
+
+        /* ========== DELIVERY SECTION ========== */
+        .delivery-section { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); }
+        .delivery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; max-width: 1200px; margin: 0 auto;
+        }
+        .delivery-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px; padding: 40px; text-align: center;
+            transition: var(--transition);
+        }
+        .delivery-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .delivery-card.featured {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.1); position: relative;
+        }
+        .delivery-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--accent); color: var(--primary-dark);
+            padding: 5px 20px; border-radius: 20px; font-size: 11px; font-weight: 700;
+        }
+        .delivery-icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 25px; font-size: 32px; color: var(--primary-dark);
+        }
+        .delivery-card h3 { font-size: 24px; margin-bottom: 15px; }
+        .delivery-price { font-size: 48px; font-weight: 700; color: var(--accent); margin-bottom: 20px; }
+        .delivery-price small { font-size: 16px; opacity: 0.7; }
+        .delivery-features { list-style: none; margin-bottom: 30px; }
+        .delivery-features li {
+            padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .delivery-features li i { color: var(--accent); }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials-section { background: var(--primary-light); }
+        .testimonials-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px; max-width: 1200px; margin: 0 auto;
+        }
+        .testimonial-card { background: var(--primary); padding: 40px; border-radius: 20px; position: relative; }
+        .testimonial-card::before {
+            content: '"'; font-family: 'Playfair Display', serif;
+            font-size: 100px; color: var(--accent); opacity: 0.2;
+            position: absolute; top: 10px; left: 20px; line-height: 1;
+        }
+        .testimonial-stars { color: var(--accent); margin-bottom: 20px; }
+        .testimonial-text { font-size: 16px; line-height: 1.8; margin-bottom: 25px; position: relative; z-index: 1; }
+        .testimonial-author { display: flex; align-items: center; gap: 15px; }
+        .testimonial-avatar {
+            width: 60px; height: 60px; background: var(--accent); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; color: var(--primary-dark); font-weight: 700;
+        }
+        .testimonial-author h4 { font-size: 18px; margin-bottom: 3px; }
+        .testimonial-author p { font-size: 13px; opacity: 0.7; }
+
+        /* ========== CART SIDEBAR ========== */
+        .cart-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7); z-index: 2000;
+            opacity: 0; visibility: hidden; transition: var(--transition);
+        }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+        .cart-sidebar {
+            position: fixed; top: 0; right: -450px;
+            width: 450px; max-width: 100%; height: 100vh;
+            background: var(--primary-dark); z-index: 2001;
+            transition: var(--transition); display: flex; flex-direction: column;
+        }
+        .cart-sidebar.active { right: 0; }
+        .cart-header {
+            padding: 25px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .cart-header h3 { font-size: 24px; display: flex; align-items: center; gap: 10px; }
+        .cart-close {
+            background: none; border: none; color: var(--white);
+            font-size: 28px; cursor: pointer; transition: var(--transition);
+        }
+        .cart-close:hover { color: var(--accent); }
+        .cart-items { flex: 1; overflow-y: auto; padding: 20px; }
+        .cart-empty { text-align: center; padding: 60px 20px; opacity: 0.7; }
+        .cart-empty i { font-size: 80px; color: var(--accent); opacity: 0.3; margin-bottom: 20px; display: block; }
+        .cart-item {
+            display: flex; gap: 15px; padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .cart-item-img {
+            width: 80px; height: 80px; background: var(--primary-light);
+            border-radius: 10px; display: flex; align-items: center;
+            justify-content: center; font-size: 40px; flex-shrink: 0;
+        }
+        .cart-item-details { flex: 1; }
+        .cart-item-name { font-weight: 600; margin-bottom: 5px; }
+        .cart-item-price { color: var(--accent); font-weight: 700; }
+        .cart-item-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+        .cart-item-qty-btn {
+            width: 28px; height: 28px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: transparent; color: var(--white);
+            border-radius: 5px; cursor: pointer; transition: var(--transition);
+        }
+        .cart-item-qty-btn:hover { background: var(--accent); color: var(--primary-dark); border-color: var(--accent); }
+        .cart-item-remove {
+            background: none; border: none; color: #e74c3c;
+            cursor: pointer; font-size: 18px; margin-left: auto;
+        }
+        .cart-footer {
+            padding: 25px; border-top: 1px solid rgba(255,255,255,0.1);
+            background: var(--primary);
+        }
+        .cart-subtotal { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; opacity: 0.8; }
+
+        /* FIX #3: Broken SVG arrow in select background-image */
+        .cart-delivery-select {
+            width: 100%; padding: 12px;
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+            background: var(--primary-dark); color: var(--white);
+            margin-bottom: 15px; font-size: 14px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23d4af37' d='M5 6l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+            font-family: 'Cairo', sans-serif;
+        }
+        .cart-delivery-select:focus { outline: none; border-color: var(--accent); }
+
+        .cart-total {
+            display: flex; justify-content: space-between;
+            font-size: 22px; font-weight: 700; margin-bottom: 20px;
+            padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .cart-total span:last-child { color: var(--accent); }
+
+        /* ENHANCEMENT: Shared input style */
+        .cart-input {
+            width: 100%; padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+            background: var(--primary-dark); color: var(--white);
+            margin-bottom: 12px; font-family: 'Cairo', sans-serif;
+            font-size: 14px; transition: border-color 0.2s;
+        }
+        .cart-input::placeholder { color: rgba(255,255,255,0.45); }
+        .cart-input:focus { border-color: var(--accent); outline: none; }
+        .cart-input.valid   { border-color: #27ae60; }
+        .cart-input.invalid { border-color: #e74c3c; }
+
+        /* ENHANCEMENT: Postcode helper message */
+        .postcode-msg {
+            font-size: 12px; margin: -8px 0 10px 4px;
+            min-height: 16px; transition: var(--transition);
+        }
+        .postcode-msg.ok  { color: #27ae60; }
+        .postcode-msg.err { color: #e74c3c; }
+
+        textarea.cart-input { resize: none; min-height: 75px; }
+
+        .cart-checkout-btns { display: flex; flex-direction: column; gap: 10px; }
+        .btn-whatsapp { background: #25d366; color: white; }
+        .btn-whatsapp:hover { background: #128c7e; }
+        .btn-whatsapp:hover { transform: translateY(-2px); }
+        .btn-loading { opacity: 0.7; pointer-events: none; }
+
+        /* ========== CONTACT SECTION ========== */
+        .contact-section { background: var(--primary); }
+        .contact-grid {
+            display: grid; grid-template-columns: 1fr 1.5fr;
+            gap: 60px; max-width: 1200px; margin: 0 auto;
+        }
+        .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 20px; }
+        .contact-info p { opacity: 0.8; margin-bottom: 30px; }
+        .contact-details { display: flex; flex-direction: column; gap: 20px; }
+        .contact-item { display: flex; align-items: center; gap: 15px; }
+        .contact-item-icon {
+            width: 50px; height: 50px;
+            background: rgba(212, 175, 55, 0.2); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; color: var(--accent);
+        }
+        .contact-item h4 { font-size: 14px; opacity: 0.7; margin-bottom: 3px; }
+        .contact-item p { margin: 0; font-weight: 600; }
+        .social-links { display: flex; gap: 15px; margin-top: 30px; }
+        .social-link {
+            width: 50px; height: 50px;
+            background: rgba(255,255,255,0.1); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--white); text-decoration: none; transition: var(--transition);
+        }
+        .social-link:hover { background: var(--accent); color: var(--primary-dark); }
+        .contact-form { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 15px;
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+            background: var(--primary-dark); color: var(--white);
+            font-family: 'Cairo', sans-serif; transition: var(--transition);
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); outline: none; }
+        .form-group textarea { resize: none; height: 150px; }
+
+        /* ========== FOOTER ========== */
+        footer { background: var(--primary-dark); padding: 80px 5% 30px; }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px; max-width: 1200px; margin: 0 auto 60px;
+        }
+        .footer-brand .logo { margin-bottom: 20px; }
+        .footer-brand p { opacity: 0.8; line-height: 1.8; }
+        .footer-col h4 { font-size: 18px; margin-bottom: 25px; position: relative; }
+        .footer-col h4::after {
+            content: ''; position: absolute; bottom: -10px; left: 0;
+            width: 30px; height: 2px; background: var(--accent);
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: var(--white); opacity: 0.8; text-decoration: none; transition: var(--transition); }
+        .footer-links a:hover { color: var(--accent); opacity: 1; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-bottom p { opacity: 0.7; font-size: 14px; }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+        /* ========== TOAST NOTIFICATIONS ========== */
+        .toast-container { position: fixed; top: 100px; right: 20px; z-index: 3000; display: flex; flex-direction: column; gap: 10px; }
+        .toast {
+            background: var(--primary-light); padding: 15px 25px; border-radius: 10px;
+            display: flex; align-items: center; gap: 15px; box-shadow: var(--shadow);
+            animation: slideIn 0.3s ease; border-left: 4px solid var(--accent);
+            max-width: 320px;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(120%); opacity: 0; }
+            to   { transform: translateX(0);    opacity: 1; }
+        }
+        .toast.success { border-left-color: #27ae60; }
+        .toast.error   { border-left-color: #e74c3c; }
+        .toast i { font-size: 22px; color: var(--accent); flex-shrink: 0; }
+        .toast.success i { color: #27ae60; }
+        .toast.error   i { color: #e74c3c; }
+        .toast span { font-size: 14px; line-height: 1.4; }
+
+        /* ========== SCROLL TO TOP ========== */
+        .scroll-top {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 50px; height: 50px; background: var(--accent);
+            color: var(--primary-dark); border: none; border-radius: 50%;
+            cursor: pointer; font-size: 20px;
+            opacity: 0; visibility: hidden; transition: var(--transition); z-index: 1000;
+        }
+        .scroll-top.visible { opacity: 1; visibility: visible; }
+        .scroll-top:hover { transform: translateY(-5px); }
+
+        /* ========== LOADER ========== */
+        .loader {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--primary-dark);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999; transition: opacity 0.5s ease;
+        }
+        .loader.hidden { opacity: 0; pointer-events: none; }
+        .loader-content { text-align: center; }
+        .loader-spinner {
+            width: 60px; height: 60px;
+            border: 4px solid rgba(212, 175, 55, 0.2); border-top-color: var(--accent);
+            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader h2 { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 28px; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+            .about-images { order: -1; }
+            .about-img-badge { right: 20px; bottom: -20px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav {
+                position: fixed; top: 0; left: -100%; width: 100%; height: 100vh;
+                background: var(--primary-dark); flex-direction: column;
+                justify-content: center; transition: var(--transition); z-index: 999;
+            }
+            nav.active { left: 0; }
+            nav a { font-size: 24px; padding: 15px; }
+            .mobile-toggle { display: flex; }
+            .header-actions .btn { display: none; }
+            .hero { padding-top: 100px; }
+            .hero h2 { font-size: 36px; }
+            .section { padding: 60px 5%; }
+            .products-grid { grid-template-columns: 1fr; }
+            .about-features { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .cart-sidebar { width: 100%; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <h2>Mimas Desserts</h2>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <a href="#" class="logo">
+            <div class="logo-icon">🧁</div>
+            <div>
+                <h1>Mimas</h1>
+                <span>Desserts</span>
+            </div>
+        </a>
+        
+        <nav id="nav">
+            <a href="#home">Home</a>
+            <a href="#products">Desserts</a>
+            <a href="#about">About</a>
+            <a href="#delivery">Delivery</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+            <button class="cart-btn" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
+                Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+            <a href="#products" class="btn btn-primary">Order Now</a>
+        </div>
+
+        <button class="mobile-toggle" id="mobileToggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge">✨ Handcrafted with Love</div>
+            <h2>Authentic <span>Middle Eastern</span> Desserts</h2>
+            <p>Experience the finest handmade baklava, kunafa, and traditional sweets. Made fresh daily with premium ingredients and generations of expertise.</p>
+            <div class="hero-btns">
+                <a href="#products" class="btn btn-primary"><i class="fas fa-utensils"></i> View Menu</a>
+                <a href="#about" class="btn btn-outline"><i class="fas fa-play"></i> Our Story</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <i class="fas fa-chevron-down"></i>
+            SCROLL DOWN
+        </div>
+    </section>
+
+    <!-- Features Strip -->
+    <div class="features-strip">
+        <div class="feature-item">
+            <i class="fas fa-leaf"></i>
+            <h4>Premium Ingredients</h4>
+            <p>Only the finest nuts &amp; honey</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-hand-sparkles"></i>
+            <h4>Handmade Daily</h4>
+            <p>Fresh from our kitchen</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-truck"></i>
+            <h4>Fast Delivery</h4>
+            <p>Same-day local delivery</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-award"></i>
+            <h4>Award Winning</h4>
+            <p>Authentic family recipes</p>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section class="section" id="products">
+        <div class="section-header">
+            <p class="subtitle">Our Menu</p>
+            <h2>Delicious Desserts</h2>
+            <p>Each dessert is crafted using authentic recipes passed down through generations.</p>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All</button>
+            <button class="filter-tab" data-filter="baklava">Baklava</button>
+            <button class="filter-tab" data-filter="kunafa">Kunafa</button>
+            <button class="filter-tab" data-filter="special">Specials</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about-section" id="about">
+        <div class="about-grid">
+            <div class="about-images">
+                <div class="about-img-main">🧁</div>
+                <div class="about-img-badge"><span>10+</span> Years</div>
+            </div>
+            <div class="about-content">
+                <h2>Our <span>Story</span></h2>
+                <p>Mimas Desserts was born from a passion for authentic Middle Eastern sweets. Our family recipes have been perfected over generations, bringing you the most exquisite flavors from the heart of the Middle East.</p>
+                <p>Every piece of baklava, every slice of kunafa is handcrafted with love using only the finest ingredients – premium pistachios, pure honey, and the freshest dairy.</p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <div class="about-feature-icon"><i class="fas fa-seedling"></i></div>
+                        <div><h4>Natural Ingredients</h4><p>No preservatives or additives</p></div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon"><i class="fas fa-cookie-bite"></i></div>
+                        <div><h4>Traditional Recipes</h4><p>Authentic family methods</p></div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon"><i class="fas fa-heart"></i></div>
+                        <div><h4>Made with Love</h4><p>Passion in every bite</p></div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon"><i class="fas fa-star"></i></div>
+                        <div><h4>5-Star Reviews</h4><p>Customer satisfaction</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Section -->
+    <section class="section delivery-section" id="delivery">
+        <div class="section-header">
+            <p class="subtitle">Delivery Options</p>
+            <h2>We Deliver to Your Door</h2>
+            <p>Choose the delivery option that works best for you.</p>
+        </div>
+        <div class="delivery-grid">
+            <div class="delivery-card">
+                <div class="delivery-icon"><i class="fas fa-motorcycle"></i></div>
+                <h3>Local Delivery</h3>
+                <div class="delivery-price">£2 <small>flat rate</small></div>
+                <ul class="delivery-features">
+                    <li><i class="fas fa-check"></i> Within 4 miles of BN21 3TZ</li>
+                    <li><i class="fas fa-check"></i> Same-day delivery available</li>
+                    <li><i class="fas fa-check"></i> Order any quantity</li>
+                    <li><i class="fas fa-check"></i> Fresh from our kitchen</li>
+                </ul>
+                <a href="#products" class="btn btn-primary">Order Now</a>
+            </div>
+            <div class="delivery-card featured">
+                <div class="delivery-icon"><i class="fas fa-box"></i></div>
+                <h3>UK Delivery</h3>
+                <div class="delivery-price">£25 <small>total</small></div>
+                <ul class="delivery-features">
+                    <li><i class="fas fa-check"></i> 1kg Mixed Sweets Box</li>
+                    <li><i class="fas fa-check"></i> Delivery included</li>
+                    <li><i class="fas fa-check"></i> Beautiful gift packaging</li>
+                    <li><i class="fas fa-check"></i> Nationwide shipping</li>
+                </ul>
+                <a href="#products" class="btn btn-primary">Order Box</a>
+            </div>
+            <div class="delivery-card">
+                <div class="delivery-icon"><i class="fas fa-store"></i></div>
+                <h3>Click &amp; Collect</h3>
+                <div class="delivery-price">Free</div>
+                <ul class="delivery-features">
+                    <li><i class="fas fa-check"></i> Collect from Eastbourne</li>
+                    <li><i class="fas fa-check"></i> Ready in 2 hours</li>
+                    <li><i class="fas fa-check"></i> Save on delivery</li>
+                    <li><i class="fas fa-check"></i> Freshest possible</li>
+                </ul>
+                <a href="#products" class="btn btn-primary">Order Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials-section" id="testimonials">
+        <div class="section-header">
+            <p class="subtitle">Testimonials</p>
+            <h2>What Our Customers Say</h2>
+            <p>Don't just take our word for it – hear from our satisfied customers.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"The best baklava I've ever tasted outside the Middle East! Absolutely authentic and fresh. Will definitely order again."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">S</div>
+                    <div><h4>Sarah Thompson</h4><p>Brighton</p></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"The Nutella Kunafa is to die for! Perfect dessert for our family gathering. Everyone was asking where I got it from."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">M</div>
+                    <div><h4>Mohammed Ali</h4><p>Eastbourne</p></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Ordered the UK delivery box for my mum's birthday. Arrived perfectly packaged and fresh. She absolutely loved it!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">E</div>
+                    <div><h4>Emma Wilson</h4><p>London</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p>Have questions about our desserts or want to place a custom order? We'd love to hear from you!</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div><h4>Location</h4><p>Eastbourne, BN21 3TZ</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+                        <div><h4>Phone</h4><p>+44 7XXXXXXXXX</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+                        <div><h4>Email</h4><p>hello@mimasdesserts.co.uk</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-clock"></i></div>
+                        <div><h4>Hours</h4><p>Mon – Sun: 9:00 AM – 8:00 PM</p></div>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm" onsubmit="handleContactForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Email</label>
+                            <input type="email" placeholder="john@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="+44 7XXXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" placeholder="Custom Order">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Message</label>
+                        <textarea placeholder="Tell us what you need..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <div class="logo-icon">🧁</div>
+                    <div><h1>Mimas</h1><span>Desserts</span></div>
+                </a>
+                <p>Bringing the authentic taste of Middle Eastern desserts to your doorstep. Handcrafted with love, using only the finest ingredients.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Our Menu</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#delivery">Delivery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Our Desserts</h4>
+                <ul class="footer-links">
+                    <li><a href="#products">Baklava</a></li>
+                    <li><a href="#products">Kunafa</a></li>
+                    <li><a href="#products">Maamoul</a></li>
+                    <li><a href="#products">Basbousa</a></li>
+                    <li><a href="#products">Gift Boxes</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Allergen Info</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Mimas Desserts. All rights reserved. Made with <span style="color:#e74c3c;">❤</span> in Eastbourne</p>
+        </div>
+    </footer>
+
+    <!-- Cart Overlay & Sidebar -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-bag"></i> Your Cart</h3>
+            <button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-subtotal">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">£0.00</span>
+            </div>
+
+            <select class="cart-delivery-select" id="deliveryType" onchange="updateCartTotal()">
+                <option value="2"  data-type="local">🚚 Local Delivery (£2) · 15–45 mins</option>
+                <option value="0"  data-type="uk">📦 UK Delivery (£25 incl.) · 1–5 days</option>
+                <option value="0"  data-type="collect">🏪 Click &amp; Collect · Free</option>
+            </select>
+
+            <!-- Postcode -->
+            <input
+                type="text"
+                id="postcodeInput"
+                class="cart-input"
+                placeholder="Postcode (e.g. BN21 3TZ)"
+                oninput="handlePostcodeInput()"
+                autocomplete="postal-code"
+                maxlength="8"
+            />
+            <div class="postcode-msg" id="postcodeMsg"></div>
+
+            <!-- Address -->
+            <textarea
+                class="cart-input"
+                id="addressInput"
+                placeholder="Full delivery address..."
+            ></textarea>
+
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cartTotal">£0.00</span>
+            </div>
+
+            <div class="cart-checkout-btns">
+                <button class="btn btn-primary" id="checkoutBtn" onclick="checkout()" style="width:100%;">
+                    <i class="fas fa-credit-card"></i> Pay with Card
+                </button>
+                <button class="btn btn-whatsapp" onclick="whatsappOrder()" style="width:100%;">
+                    <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+    // ==================== PRODUCT DATA ====================
+    const products = [
+        { id:1, name:"Classic Baklava",     category:"baklava", price:4.50, description:"Layers of crispy filo pastry, premium pistachios, and pure honey syrup.",              emoji:"🥮", badge:"Bestseller" },
+        { id:2, name:"Traditional Kunafa",  category:"kunafa",  price:4.50, description:"Crispy shredded pastry with sweet cheese filling, soaked in sugar syrup.",             emoji:"🧀", badge:null },
+        { id:3, name:"Nutella Kunafa",      category:"kunafa",  price:5.50, description:"Our signature kunafa with a generous layer of creamy Nutella.",                        emoji:"🍫", badge:"Popular" },
+        { id:4, name:"Pistachio Baklava",   category:"baklava", price:5.00, description:"Premium baklava filled with the finest Turkish pistachios.",                            emoji:"🌰", badge:null },
+        { id:5, name:"Maamoul",             category:"special", price:3.50, description:"Traditional date-filled cookies with a melt-in-your-mouth texture.",                   emoji:"🍪", badge:null },
+        { id:6, name:"Basbousa",            category:"special", price:4.00, description:"Moist semolina cake soaked in sweet syrup, topped with almonds.",                      emoji:"🍰", badge:"New" },
+        { id:7, name:"Mixed Baklava Box",   category:"baklava", price:15.00,description:"Assortment of our finest baklava varieties – perfect for sharing.",                    emoji:"📦", badge:"Value" },
+        { id:8, name:"Cream Kunafa",        category:"kunafa",  price:5.00, description:"Silky cream filling wrapped in golden crispy kunafa pastry.",                          emoji:"🍮", badge:null }
+    ];
+
+    // ==================== STATE ====================
+    let cart = JSON.parse(localStorage.getItem('mimasCart') || '[]');
+    let currentFilter = 'all';
+
+    // ==================== INIT ====================
+    document.addEventListener('DOMContentLoaded', () => {
+        renderProducts();
+        updateCartUI();
+        setupFilterTabs();
+        setupScrollEffects();
+        setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
+    });
+
+    // ==================== PRODUCT RENDERING ====================
+    function renderProducts() {
+        const grid = document.getElementById('productsGrid');
+        const list = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
+
+        grid.innerHTML = list.map((p, idx) => `
+            <div class="product-card" style="animation-delay:${idx * 0.07}s" data-category="${p.category}">
+                <div class="product-img">
+                    ${p.emoji}
+                    ${p.badge ? `<span class="product-badge ${p.badge.toLowerCase()}">${p.badge}</span>` : ''}
+                    <button class="product-wishlist" onclick="toggleWishlist(${p.id}, this)" aria-label="Add to wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-content">
+                    <p class="product-category">${p.category}</p>
+                    <h3 class="product-name">${p.name}</h3>
+                    <p class="product-desc">${p.description}</p>
+                    <div class="product-footer">
+                        <div class="product-price">£${p.price.toFixed(2)}</div>
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="updateProductQty(${p.id}, -1)">−</button>
+                            <span class="qty-value" id="qty-${p.id}">${getCartQty(p.id)}</span>
+                            <button class="qty-btn" onclick="updateProductQty(${p.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="add-to-cart" id="atc-${p.id}" onclick="addToCart(${p.id})">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function setupFilterTabs() {
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function () {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderProducts();
+            });
+        });
+    }
+
+    function getCartQty(productId) {
+        const item = cart.find(i => i.id === productId);
+        return item ? item.qty : 0;
+    }
+
+    function updateProductQty(productId, change) {
+        const el = document.getElementById(`qty-${productId}`);
+        if (!el) return;
+        el.textContent = Math.max(0, parseInt(el.textContent) + change);
+    }
+
+    // ==================== CART FUNCTIONS ====================
+    function addToCart(productId) {
+        const product = products.find(p => p.id === productId);
+        const qtyEl = document.getElementById(`qty-${productId}`);
+        const qty = Math.max(1, parseInt(qtyEl.textContent) || 1);
+
+        const existing = cart.find(i => i.id === productId);
+        if (existing) {
+            existing.qty += qty;
+        } else {
+            cart.push({ id: product.id, name: product.name, price: product.price, emoji: product.emoji, qty });
+        }
+
+        qtyEl.textContent = 0;
+        saveCart();
+        updateCartUI();
+        showToast(`${product.name} added to cart!`, 'success');
+
+        // ENHANCEMENT: "Added!" flash on button
+        const btn = document.getElementById(`atc-${productId}`);
+        if (btn) {
+            btn.classList.add('added');
+            btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+            setTimeout(() => {
+                btn.classList.remove('added');
+                btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
+            }, 1500);
+        }
+    }
+
+    function removeFromCart(productId) {
+        cart = cart.filter(i => i.id !== productId);
+        saveCart();
+        updateCartUI();
+        showToast('Item removed', 'error');
+    }
+
+    function updateCartItemQty(productId, change) {
+        const item = cart.find(i => i.id === productId);
+        if (!item) return;
+        item.qty += change;
+        if (item.qty <= 0) removeFromCart(productId);
+        else { saveCart(); updateCartUI(); }
+    }
+
+    function saveCart() {
+        localStorage.setItem('mimasCart', JSON.stringify(cart));
+    }
+
+    function updateCartUI() {
+        const cartItemsEl = document.getElementById('cartItems');
+        const cartCount   = document.getElementById('cartCount');
+
+        // FIX #4: Correct arrow function placement — was: (sum, i => ...) should be (sum, i) => ...
+        const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
+
+        // ENHANCEMENT: Bump animation on cart count badge
+        cartCount.textContent = totalItems;
+        cartCount.classList.remove('bump');
+        void cartCount.offsetWidth; // reflow
+        if (totalItems > 0) cartCount.classList.add('bump');
+        setTimeout(() => cartCount.classList.remove('bump'), 300);
+
+        if (cart.length === 0) {
+            cartItemsEl.innerHTML = `
+                <div class="cart-empty">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h4>Your cart is empty</h4>
+                    <p>Add some delicious desserts!</p>
+                </div>`;
+            document.getElementById('cartFooter').style.display = 'none';
+        } else {
+            cartItemsEl.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-img">${item.emoji}</div>
+                    <div class="cart-item-details">
+                        <h4 class="cart-item-name">${item.name}</h4>
+                        <p class="cart-item-price">£${(item.price * item.qty).toFixed(2)}</p>
+                        <div class="cart-item-controls">
+                            <button class="cart-item-qty-btn" onclick="updateCartItemQty(${item.id}, -1)">−</button>
+                            <span>${item.qty}</span>
+                            <button class="cart-item-qty-btn" onclick="updateCartItemQty(${item.id}, 1)">+</button>
+                            <button class="cart-item-remove" onclick="removeFromCart(${item.id})" aria-label="Remove">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('cartFooter').style.display = 'block';
+        }
+
+        updateCartTotal();
+    }
+
+    function updateCartTotal() {
+        const subtotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+        const delivery  = parseFloat(document.getElementById('deliveryType').value) || 0;
+        document.getElementById('cartSubtotal').textContent = `£${subtotal.toFixed(2)}`;
+        document.getElementById('cartTotal').textContent    = `£${(subtotal + delivery).toFixed(2)}`;
+    }
+
+    function toggleCart() {
+        document.getElementById('cartOverlay').classList.toggle('active');
+        document.getElementById('cartSidebar').classList.toggle('active');
+    }
+
+    // ==================== POSTCODE ====================
+    const LOCAL_PREFIXES = [
+        "BN21 1","BN21 2","BN21 3","BN21 4",
+        "BN20 7","BN20 8","BN20 9",
+        "BN22 7","BN22 8","BN22 9"
+    ];
+
+    function formatPostcode(raw) {
+        return raw.toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^(.+?)(\d[A-Z]{2})$/, '$1 $2').trim();
+    }
+
+    function isValidLocalPostcode(postcode) {
+        const f = formatPostcode(postcode);
+        return LOCAL_PREFIXES.some(prefix => f.startsWith(prefix));
+    }
+
+    function handlePostcodeInput() {
+        const input = document.getElementById('postcodeInput');
+        const msg   = document.getElementById('postcodeMsg');
+        const raw   = input.value.toUpperCase().replace(/[^A-Z0-9 ]/g, '');
+        input.value = raw;
+
+        if (raw.replace(/\s/g,'').length < 5) {
+            input.className = 'cart-input';
+            msg.textContent = '';
+            return;
+        }
+
+        if (isValidLocalPostcode(raw)) {
+            input.className = 'cart-input valid';
+            msg.textContent  = '✓ Local delivery available (15–45 min)';
+            msg.className    = 'postcode-msg ok';
+            autoSelectDelivery('local');
+        } else {
+            input.className = 'cart-input invalid';
+            msg.textContent  = '✗ Outside local area – UK delivery selected';
+            msg.className    = 'postcode-msg err';
+            autoSelectDelivery('uk');
+        }
+    }
+
+    function autoSelectDelivery(type) {
+        const select = document.getElementById('deliveryType');
+        for (const opt of select.options) {
+            if (opt.dataset.type === type) { select.value = opt.value; break; }
+        }
+        updateCartTotal();
+    }
+
+    // ==================== CHECKOUT ====================
+    async function checkout() {
+        const postcode = document.getElementById('postcodeInput').value.trim();
+        const address  = document.getElementById('addressInput').value.trim();
+        const select   = document.getElementById('deliveryType');
+        const selType  = select.options[select.selectedIndex].dataset.type;
+
+        if (cart.length === 0)  return showToast('Your cart is empty!', 'error');
+        if (!postcode)          { showToast('Please enter your postcode', 'error'); document.getElementById('postcodeInput').focus(); return; }
+        if (!address)           { showToast('Please enter your address', 'error');  document.getElementById('addressInput').focus(); return; }
+
+        if (selType === 'local' && !isValidLocalPostcode(postcode)) {
+            showToast("Sorry, that postcode is outside our local delivery area.", 'error');
+            autoSelectDelivery('uk');
+            return;
+        }
+
+        const delivery    = parseFloat(select.value) || 0;
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const origHTML    = checkoutBtn.innerHTML;
+        checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing…';
+        checkoutBtn.disabled  = true;
+        checkoutBtn.classList.add('btn-loading');
+
+        try {
+            const res  = await fetch('/api/create-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    items: cart.map(i => ({ name: i.name, price: i.price, quantity: i.qty })),
+                    delivery, postcode, address, deliveryType: selType
+                })
+            });
+            const data = await res.json();
+            if (data.url) {
+                sessionStorage.setItem('pendingCart', JSON.stringify(cart));
+                window.location.href = data.url;
+            } else {
+                showToast(data.error || 'Payment error. Please try again.', 'error');
+            }
+        } catch (err) {
+            console.error('Checkout error:', err);
+            showToast('Unable to process payment. Please try again.', 'error');
+        } finally {
+            checkoutBtn.innerHTML = origHTML;
+            checkoutBtn.disabled  = false;
+            checkoutBtn.classList.remove('btn-loading');
+        }
+    }
+
+    // ==================== WHATSAPP ====================
+    function whatsappOrder() {
+        const postcode = document.getElementById('postcodeInput').value.trim();
+        const address  = document.getElementById('addressInput').value.trim();
+        const select   = document.getElementById('deliveryType');
+        const selOpt   = select.options[select.selectedIndex];
+        const selType  = selOpt.dataset.type;
+
+        if (cart.length === 0) return showToast('Your cart is empty!', 'error');
+        if (!postcode) { showToast('Please enter your postcode', 'error'); document.getElementById('postcodeInput').focus(); return; }
+        if (!address)  { showToast('Please enter your address',  'error'); document.getElementById('addressInput').focus();  return; }
+
+        if (selType === 'local' && !isValidLocalPostcode(postcode)) {
+            showToast("That postcode isn't in our local area. Please choose UK Delivery.", 'error');
+            return;
+        }
+
+        const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        const delivery = parseFloat(select.value) || 0;
+        const total    = subtotal + delivery;
+
+        // FIX #5: Build plain-text message then let encodeURIComponent handle encoding
+        // (Previously %0A literals were double-encoded by encodeURIComponent → %250A)
+        const eta = selType === 'local' ? '15–45 minutes' : selType === 'uk' ? '1–5 days' : 'Collect in 2 hours';
+
+        let msg = `🧁 *New Order – Mimas Desserts*\n\n`;
+        msg += `*Items:*\n`;
+        cart.forEach(i => { msg += `• ${i.name} ×${i.qty}  £${(i.price * i.qty).toFixed(2)}\n`; });
+        msg += `\n*Subtotal:* £${subtotal.toFixed(2)}\n`;
+        msg += `*Delivery:* ${selOpt.text.split('·')[0].trim()}  £${delivery.toFixed(2)}\n`;
+        msg += `*Total:* £${total.toFixed(2)}\n`;
+        msg += `*ETA:* ${eta}\n\n`;
+        msg += `*Postcode:* ${postcode}\n`;
+        msg += `*Address:* ${address}\n\n`;
+        msg += `_Placed via website WhatsApp button._`;
+
+        window.open(`https://wa.me/447426704236?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // ==================== UI HELPERS ====================
+    function toggleMobileMenu() {
+        document.getElementById('nav').classList.toggle('active');
+        document.getElementById('mobileToggle').classList.toggle('active');
+    }
+
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i><span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.transition = 'opacity 0.3s, transform 0.3s';
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(120%)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    function toggleWishlist(productId, btn) {
+        btn.classList.toggle('active');
+        btn.querySelector('i').className = btn.classList.contains('active') ? 'fas fa-heart' : 'far fa-heart';
+        showToast(btn.classList.contains('active') ? 'Added to wishlist!' : 'Removed from wishlist', 'success');
+    }
+
+    function setupScrollEffects() {
+        const header    = document.getElementById('header');
+        const scrollTop = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 100);
+            scrollTop.classList.toggle('visible', window.scrollY > 300);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('nav').classList.remove('active');
+                    document.getElementById('mobileToggle').classList.remove('active');
+                }
+            });
+        });
+    }
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleContactForm(e) {
+        e.preventDefault();
+        showToast("Message sent! We'll be in touch soon.", 'success');
+        e.target.reset();
+    }
+    </script>
+</body>
+</html>
