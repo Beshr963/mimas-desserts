@@ -1,9 +1,6 @@
 {
   "name": "mimas-desserts",
   "version": "1.0.0",
-  "engines": {
-    "node": "24.x"
-  },
   "dependencies": {
     "nodemailer": "^6.9.14",
     "stripe": "^14.24.0"
